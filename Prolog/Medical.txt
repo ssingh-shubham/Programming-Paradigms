@@ -1,0 +1,39 @@
+% Define symptoms and diseases
+symptom(fever).
+symptom(cough).
+symptom(headache).
+symptom(rash).
+symptom(fatigue).
+
+disease(influenza).
+disease(common_cold).
+disease(measles).
+disease(allergy).
+disease(fatigue_syndrome).
+
+% Define rules for diagnosing diseases based on symptoms
+diagnose(Disease) :- has_symptom(fever), has_symptom(cough), has_symptom(fatigue), Disease = influenza.
+diagnose(Disease) :- has_symptom(fever), has_symptom(cough), Disease = common_cold.
+diagnose(Disease) :- has_symptom(fever), has_symptom(rash), Disease = measles.
+diagnose(Disease) :- has_symptom(rash), has_symptom(fatigue), Disease = allergy.
+diagnose(Disease) :- has_symptom(fatigue), Disease = fatigue_syndrome.
+
+% Define a predicate for checking if a patient has a symptom
+has_symptom(Symptom) :-
+    write('Do you have '), write(Symptom), write('? (yes/no): '),
+    read(Response),
+    Response = 'yes'.
+
+% Query for diagnosis
+diagnosis :- 
+    write('Welcome to the Medical Diagnostic System.'), nl,
+    write('Please answer the following questions to help with the diagnosis.'), nl,
+    diagnose(Disease),
+    write('Based on the symptoms, you may have '), write(Disease), write('.'), nl,
+    write('Please consult a medical professional for further evaluation and treatment.'), nl.
+
+% Sample usage
+% To use the program, you can query `diagnosis.` and follow the prompts to answer yes or no for symptoms.
+
+% Example usage:
+% ?- diagnosis.

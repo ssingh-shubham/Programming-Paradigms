@@ -1,0 +1,33 @@
+% Facts defining parent-child relationships
+parent(john, mary).
+parent(john, bob).
+parent(mary, ann).
+parent(bob, lisa).
+parent(bob, patrick).
+parent(patrick, emma).
+
+% Rules for defining grandparent relationships
+grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
+
+% Rules for defining sibling relationships
+sibling(X, Y) :- parent(Z, X), parent(Z, Y), X \= Y.
+
+% Rules for defining brother and sister relationships
+brother(X, Y) :- sibling(X, Y), male(X).
+sister(X, Y) :- sibling(X, Y), female(X).
+
+% Define genders
+male(john).
+male(bob).
+male(patrick).
+female(mary).
+female(ann).
+female(lisa).
+female(emma).
+
+% Query examples
+% Who are the grandparents of Lisa?
+% grandparent(X, lisa).
+
+% Who are the siblings of Patrick?
+% sibling(X, patrick).
